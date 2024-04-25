@@ -1,0 +1,21 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(plotly)
+
+# load the diamonds dataset from the ggplot2 package
+data(diamonds, package = "ggplot2")
+
+diamonds
+
+plot_ly(diamonds, x = ~x, y = ~y, z = ~z) %>%
+  add_markers(color = ~clarity)
+```
+
+```{r}
+
+```
+

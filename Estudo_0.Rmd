@@ -21,3 +21,119 @@ p <- gapminder %>%
 
 
 ``` 
+```{r}
+# Visualisation packages
+library(ggplot2)
+library(plotly)
+library(viridis)
+library(hrbrthemes)
+
+# Data packages
+library(gapminder)
+library(dplyr) 
+
+
+data <- gapminder %>% filter(year=="2007") %>% dplyr::select(-year)
+data = data %>%  
+  # Reorder countries to having big bubbles on top
+  arrange(desc(pop)) %>%
+  mutate(country = factor(country, country))
+
+
+
+data = data %>% 
+  mutate(text = paste(
+    "Country: ", country,
+    "\nPopulation (M): ", pop,
+    "\nLife Expectancy: ", lifeExp,
+    "\nGdp per capita: ", gdpPercap, sep="")
+  )
+
+p = data %>%
+  ggplot( aes(x=gdpPercap, y=lifeExp, size=pop, color=continent, text=text)) +
+    geom_point(alpha=0.7) +
+    scale_size(range = c(1.4, 19), name="Population (M)") +
+    scale_color_viridis(discrete=TRUE, guide=FALSE) +
+    theme_ipsum() +
+    theme(legend.position="none")
+
+# turn ggplot interactive with plotly
+pp = ggplotly(p, tooltip="text")
+
+# save the widget
+#library(htmlwidgets)
+#saveWidget(pp, file="HtmlWidget/plotlyDefaultTooltip2.html")
+
+pp
+
+```
+
+
+```{r}
+data <- data %>%
+  mutate(text = paste(
+    "<span style='font-size:16px;'><b>", country, "</b></span><br>",
+    "<br><b>Population (M):</b> ", pop,
+    "<br><b>Life Expectancy (years):</b> ", round(lifeExp, 2),
+    "<br><b>Gdp per capita:</b> $", round(gdpPercap, 2),
+    sep=""))
+
+p <- data %>%
+  ggplot(aes(x=gdpPercap, y=lifeExp, size=pop, color=continent, text=text)) +
+    geom_point(alpha=0.7) +
+    scale_size(range = c(1.4, 19), name="Population (M)") +
+    scale_color_viridis(discrete=TRUE, guide=FALSE) +
+    theme_ipsum() +
+    theme(legend.position="none")
+
+pp <- ggplotly(p, tooltip="text")
+
+
+pp1 <- pp %>%
+  layout(
+    hoverlabel = list(bgcolor = "white",
+                      font = list(size = 12, color = "black"))
+  )
+
+pp1
+
+
+
+pp2 <- pp %>%
+  layout(
+    title = "Gráfico Interativo Bonito",
+    xaxis = list(title = "Eixo X"),
+    yaxis = list(title = "Eixo Y"),
+    legend = list(
+      x = 9.9,
+      y = 0.9,
+      bgcolor = "rgba(255, 255, 255, 0.5)",
+      bordercolor = "blue",
+      borderwidth = 1,
+      font = list(size = 12, family = "Arial", color = "white")
+    ),
+    annotations = list(
+      text = "Anotação no Gráfico",
+      x = 5,
+      y = 0,
+      showarrow = TRUE,
+      arrowhead = 1,
+      arrowsize = 1,
+      arrowwidth = 2,
+      arrowcolor = "red",
+      font = list(size = 12, family = "Arial", color = "black")
+    ),
+    margin = list(l = 100, r = 100, b = 100, t = 100),
+    hoverlabel = list(
+      bgcolor = "darkblue",
+      font = list(size = 12, color = "yellow")
+    ),
+    plot_bgcolor = "white",
+    paper_bgcolor = "black"
+  )
+
+
+
+pp2
+
+``` 

@@ -74,13 +74,11 @@ p1 <- plot_ly(data, x = ~BPA_ALTERN_POINTS, y = ~BPA_DIVID_POINTS, z = ~BPA_CONC
                             '<br>Grupo:', GROUP,
                             '<br>Idade:', AGE,
                             '<br>Pontuação Moca:', MOCA_VALUE,
-                            '<br>Atenção Alternada:', BPA_ALTERN_POINTS,
-                            '<br>Atenção Concentrada:', BPA_DIVID_POINTS,
-                            '<br>Atenção Dividida:', BPA_CONC_POINTS,
+                           # '<br>Atenção Alternada:', BPA_ALTERN_POINTS,
+                           # '<br>Atenção Concentrada:', BPA_DIVID_POINTS,
+                           # '<br>Atenção Dividida:', BPA_CONC_POINTS,
                             '<br>Nível de educação:', EDU_LEVEL)) %>% 
-           
-          
-  
+       
      add_markers(color = ~MOCA_VALUE) %>% 
   layout(
     scene = list(

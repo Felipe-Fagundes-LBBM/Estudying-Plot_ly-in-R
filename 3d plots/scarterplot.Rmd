@@ -61,6 +61,19 @@ plot_ly() %>% add_surface(x = ~x, y = ~y, z = ~volcano)
 ```
 
 ```{r}
+setwd("C:\\Users\\felip\\Desktop\\R\\Estudying-Plot_ly-in-R\\3d plots")
+
+data  <- data <- readxl::read_xlsx ("DADOS_BRUTOS_COVID_LONGA_PREENCHENDO(1).xlsx", sheet = 1)
+
+data
+
+
+p1 <- plot_ly(data, x = ~AGE, y = ~EDU_LEVEL, z = ~BPA_CONC_POINTS) %>%
+  add_markers(color = ~GROUP)
+
+p1
+
 
 ```
+
 

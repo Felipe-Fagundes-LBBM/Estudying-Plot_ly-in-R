@@ -215,7 +215,7 @@ p3 <- data %>%
       list(label = 'Inibição',values=~FDT_INHIBITION),  
       list(label = 'Flexibilidade',values=~FDT_FLEXIBILITY)),  
 
-    color = ~GROUP, colors = c('#636EFA','#EF553B') 
+    color = ~GROUP, colors = c('green','#EF553B') 
   ) 
 
 p3 <- p3 %>% 

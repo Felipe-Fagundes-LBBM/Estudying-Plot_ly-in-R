@@ -62,6 +62,8 @@ plot_ly() %>% add_surface(x = ~x, y = ~y, z = ~volcano)
 
 ```{r}
 
+                            # BPAS
+
 setwd("C:\\Users\\felip\\Desktop\\R\\Estudying-Plot_ly-in-R\\3d plots")
 
 data  <- data <- readxl::read_xlsx ("DADOS_BRUTOS_COVID_LONGA_PREENCHENDO(1).xlsx", sheet = 1)
@@ -171,6 +173,70 @@ p2
 
 
 
+
+
+```
+
+```{r}
+                                       # FDTs
+
+library(plotly) 
+library(stats) 
+
+
+setwd("C:\\Users\\felip\\Desktop\\R\\Estudying-Plot_ly-in-R\\3d plots")
+
+data  <- data <- readxl::read_xlsx ("DADOS_BRUTOS_COVID_LONGA_PREENCHENDO(1).xlsx", sheet = 1)
+
+
+colnames(data)
+
+data
+
+X <- subset(data, select = -c(GROUP)) 
+
+
+
+axis = list(showline=FALSE, 
+            zeroline=FALSE, 
+            gridcolor='#ffff', 
+            ticklen=4)
+
+
+p3 <- data %>%  
+  plot_ly()  %>%  
+  add_trace(  
+    type = 'splom',  
+    dimensions = list( 
+      list(label = 'Reading Time',values=~FDT_READING_TIME),  
+      list(label = 'Counting Time',values=~FDT_COUNTING_TIME),  
+      list(label ='Choosing Time',values=~FDT_CHOOSING_TIME),  
+      list(label = 'Changing Time',values=~FDT_CHANGING_TIME),  
+      list(label = 'Inibição',values=~FDT_INHIBITION),  
+      list(label = 'Flexibilidade',values=~FDT_FLEXIBILITY)),  
+
+    color = ~GROUP, colors = c('#636EFA','#EF553B') 
+  ) 
+
+p3 <- p3 %>% 
+  layout( 
+    legend=list(title=list(text='Grupos')), 
+    hovermode='closest', 
+    dragmode= 'select', 
+    plot_bgcolor='rgba(240,240,240,0.95)', 
+    xaxis=list(domain=NULL, showline=F, zeroline=F, gridcolor='#ffff', ticklen=4), 
+    yaxis=list(domain=NULL, showline=F, zeroline=F, gridcolor='#ffff', ticklen=4), 
+    xaxis2=axis, 
+    xaxis3=axis, 
+    xaxis4=axis, 
+    yaxis2=axis, 
+    yaxis3=axis, 
+    yaxis4=axis 
+  ) 
+
+
+p3
+  
 
 
 ```
